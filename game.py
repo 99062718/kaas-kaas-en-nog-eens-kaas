@@ -1,6 +1,6 @@
 import random
 
-#to do: numberOfOperators, difficulty
+#to do: numberOfOperators, difficulty, additionSubtractionNumber
 
 def answerCheck(userAnswer, correctAnswer):
     if userAnswer == correctAnswer:
@@ -28,5 +28,14 @@ def healthCheck(currentHealth):
 
 def questionMaker():
     randomNumber = random.randint(1, numberOfOperators)
-    if randomNumber == 0:
-        
+    if randomNumber == 1 or randomNumber == 2:
+        randomNumber2 = random.randint(1, additionSubtractionNumber)
+        randomNumber3 = random.randint(1, additionSubtractionNumber)
+        return ["What is " + str(randomNumber2) + " + " + str(randomNumber3) + "? ", randomNumber2 + randomNumber3] if randomNumber == 1 else ["What is " + str(randomNumber2) + " - " + str(randomNumber3) + "? ", randomNumber2 - randomNumber3]
+    elif randomNumber == 3 or randomNumber == 4:
+        randomNumber2 = random.randint(1, additionSubtractionNumber)
+        return ["Name a number higher than " + str(randomNumber2) + ": ", randomNumber2] if randomNumber == 3 else ["Name a number lower than " + str(randomNumber2) + ": ", randomNumber2]
+    elif randomNumber == 5:
+        randomNumber2 = random.randint(1, multiplicationNumber)
+        randomNumber3 = random.randint(1, multiplicationNumber)
+        return ["What is " + str(randomNumber2) + " * " + str(randomNumber3) + "? ", randomNumber2 + randomNumber3]
