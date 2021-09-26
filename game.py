@@ -5,12 +5,12 @@ character = "hero"
 
 #to do: make function for putting questions on screen and automatically choose answerCheck or answerCheckAlternate, give ability to check current health during levels without having to get hit
 
-def theInfoDumper(info):
+def theInfoDumper(info): #Give this function a list of strings and it will print it out for you with a delay. Good for large walls of text.
     for x in info:
         print(x)
         time.sleep(6)
 
-def answerCheck(userAnswer, correctAnswer):
+def answerCheck(userAnswer, correctAnswer): #checks the answer given to any question that is not higher or smaller than
     if userAnswer == correctAnswer:
         return 1
     elif userAnswer - correctAnswer <= 20 and userAnswer - correctAnswer >= 1 or correctAnswer - userAnswer <= 20 and correctAnswer - userAnswer >= 1:
@@ -18,7 +18,7 @@ def answerCheck(userAnswer, correctAnswer):
     elif userAnswer != correctAnswer:
         return 3
 
-def answerCheckAlternate(userAnswer, question):
+def answerCheckAlternate(userAnswer, question): #checks the answer to higher or smaller than questions
     if userAnswer > question:
         return 1
     elif userAnswer < question:
@@ -26,7 +26,7 @@ def answerCheckAlternate(userAnswer, question):
     else:
         return 3
 
-def healthCheck(currentHealth):
+def healthCheck(currentHealth): #removes health
     if difficulty == "easy":
         return currentHealth - 3
     elif difficulty == "medium":
@@ -34,27 +34,27 @@ def healthCheck(currentHealth):
     else:
         return 0
 
-def questionMaker():
+def questionMaker(): #makes questions by choosing an operator based on a random number
     randomNumber = random.randint(1, numberOfOperators)
     if randomNumber == 1 or randomNumber == 2:
         randomNumber2 = random.randint(1, additionSubtractionNumber)
         randomNumber3 = random.randint(1, additionSubtractionNumber)
-        return ["What is " + str(randomNumber2) + " + " + str(randomNumber3) + "? ", randomNumber2 + randomNumber3] if randomNumber == 1 else ["What is " + str(randomNumber2) + " - " + str(randomNumber3) + "? ", randomNumber2 - randomNumber3]
+        return ["What is " + str(randomNumber2) + " + " + str(randomNumber3) + "?\n", randomNumber2 + randomNumber3] if randomNumber == 1 else ["What is " + str(randomNumber2) + " - " + str(randomNumber3) + "?\n", randomNumber2 - randomNumber3]
     elif randomNumber == 3 or randomNumber == 4:
         randomNumber2 = random.randint(1, additionSubtractionNumber)
-        return ["Name a number higher than " + str(randomNumber2) + ": ", randomNumber2] if randomNumber == 3 else ["Name a number lower than " + str(randomNumber2) + ": ", randomNumber2]
+        return ["Name a number higher than " + str(randomNumber2) + "\n", randomNumber2] if randomNumber == 3 else ["Name a number lower than " + str(randomNumber2) + "\n", randomNumber2]
     elif randomNumber == 5:
         randomNumber2 = random.randint(1, multiplicationNumber)
         randomNumber3 = random.randint(1, multiplicationNumber)
-        return ["What is " + str(randomNumber2) + " * " + str(randomNumber3) + "? ", randomNumber2 * randomNumber3]
+        return ["What is " + str(randomNumber2) + " * " + str(randomNumber3) + "?\n", randomNumber2 * randomNumber3]
 
-def diffselect():
+def diffselect(): #selects a difficulty
     global difficulty
     global numberOfOperators
     global additionSubtractionNumber
     global multiplicationNumber
 
-    difficulty = input("Enter the difficulty you would like to play on (easy, medium or hard): ").lower()
+    difficulty = input("Enter the difficulty you would like to play on (easy, medium or hard)\n").lower()
     if difficulty == "easy":
         numberOfOperators = 4
         additionSubtractionNumber = 100
@@ -83,3 +83,12 @@ if character == "hero": #to do: Add forrest path first, Log level
         "One day the boy had a chance. A less prominent member of the royal family had been kidnapped on their way to one of the capital of the country. If he could find them and strike down the people that kidnapped them, they might land him a job in a lesser castle. From where he could then work up to the royal family.",
         "And so the boy set out on an adventure. To find and rescue the royal member from certain doom!\n"
     ])
+    choice = input("As you leave the village you come across a sign. One arrow points to the right and one points straight ahead. The arrows have 'forest' and 'desert' on them. Which way will you go? (forrest or desert)\n").lower()
+    if choice == "forest":
+        theInfoDumper([
+
+        ])
+    else:
+        theInfoDumper([
+
+        ])
