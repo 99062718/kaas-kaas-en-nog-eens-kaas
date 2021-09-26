@@ -1,7 +1,5 @@
 import random
 
-#to do: numberOfOperators, difficulty, additionSubtractionNumber
-
 def answerCheck(userAnswer, correctAnswer):
     if userAnswer == correctAnswer:
         return 1
@@ -38,4 +36,29 @@ def questionMaker():
     elif randomNumber == 5:
         randomNumber2 = random.randint(1, multiplicationNumber)
         randomNumber3 = random.randint(1, multiplicationNumber)
-        return ["What is " + str(randomNumber2) + " * " + str(randomNumber3) + "? ", randomNumber2 + randomNumber3]
+        return ["What is " + str(randomNumber2) + " * " + str(randomNumber3) + "? ", randomNumber2 * randomNumber3]
+
+def diffselect():
+    global difficulty
+    global numberOfOperators
+    global additionSubtractionNumber
+    global multiplicationNumber
+
+    difficulty = input("Enter the difficulty you would like to play on (easy, medium or hard): ").lower()
+    if difficulty == "easy":
+        numberOfOperators = 4
+        additionSubtractionNumber = 100
+        multiplicationNumber = 20
+    elif difficulty == "medium":
+        numberOfOperators = 4
+        additionSubtractionNumber = 1000
+        multiplicationNumber = 100
+    elif difficulty == "hard":
+        numberOfOperators = 5
+        additionSubtractionNumber = 5000
+        multiplicationNumber = 500
+    else:
+        print("This is not a possible difficulty!")
+        diffselect()
+
+diffselect()
