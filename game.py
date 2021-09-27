@@ -67,6 +67,9 @@ def diffselect(): #selects a difficulty
         numberOfOperators = 5
         additionSubtractionNumber = 5000
         multiplicationNumber = 500
+    elif difficulty == "":
+        print("Uhm.... you were supposed to enter something here...")
+        diffselect()
     else:
         print("This is not a possible difficulty!")
         diffselect()
@@ -86,8 +89,18 @@ if character == "hero": #to do: Add forrest path first, Log level
     choice = input("As you leave the village you come across a sign. One arrow points to the right and one points straight ahead. The arrows have 'forest' and 'desert' on them. Which way will you go? (forrest or desert)\n").lower()
     if choice == "forest":
         theInfoDumper([
-
+            "You chose to enter the forest!",
+            "As you walk along the road to the forest the feeling of living on the countryside seems more apparent than ever.",
+            "Everywhere you look you can only see fields, with the exception of the forest infront of you.",
+            "As you reach the edge of the forest you see the trees stretch far above you.",
+            "It was quite easy to see the path going through the forest, so you decided to follow it further.",
+            "The inside of the forest is calm. No one was there. Althought the ocasional bird could be seend sitting on the branches of the trees."
         ])
+        choice = input("As your eyes wonder around you see a glint deeper into the forest. The glint is off the path. Will you go thowards the glint or stay on the path? (path or deeper forest)")
+        if choice == "path":
+            theInfoDumper([])
+        else:
+            theInfoDumper([])
     else:
         theInfoDumper([
 
