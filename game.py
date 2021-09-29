@@ -1,12 +1,12 @@
 import random
 import time
 
-character = "hero"
+characters = ["hero"]
 maxHealth = 15
 health = 15
 damageMultiplier = 1
 
-#to do: implement cheatcode system in the options menu (mostly meant to skip to different places for debug purposes but can also be used for having some fun :) )
+#to do: currently empty!
 
 #---------------------------------------------------------------------------------------------------//Functions entire game needs to work.
 
@@ -68,7 +68,7 @@ def answerCheckAlternate(userAnswer, question, higherOrLower): #checks the answe
 #------------------------------------//Battle innitiators
 
 def battle(currentEventInfo, outcomeInfo): #for regular battles like snakes or trolls
-    for x in range(0, len(outcomeInfo) - 1):
+    for x in range(0, len(outcomeInfo)):
         print(currentEventInfo[x])
         questionChecker(outcomeInfo[x])
 
@@ -145,9 +145,9 @@ def cheatCodes(): #I dont think ill have to explain this one
         else:
             print("Please enter a valid cheatcode.")
 
-#------------------------------------//Difficulty
+#------------------------------------//Difficulty and character selection
 
-def diffselect(): #selects a difficulty
+def diffSelect(): #selects a difficulty
     global difficulty
     global numberOfOperators
     global additionSubtractionNumber
@@ -168,10 +168,27 @@ def diffselect(): #selects a difficulty
         multiplicationNumber = 500
     elif difficulty == "":
         print("Uhm.... you were supposed to enter something here...")
-        diffselect()
+        diffSelect()
     else:
         print("This is not a possible difficulty!")
-        diffselect()
+        diffSelect()
+
+def characterSelect(): #runs through the characters list than asks the user which one they want to be
+    whileNum = 0
+    while whileNum == 0:
+        print("Choose one of the following characters:")
+        for x in characters:
+            print("- ", x)
+        choice = input("").lower()
+        for x in characters:
+            if choice == x:
+                return x
+        if choice == "":
+            print("Uhm.... you were supposed to enter something here...")
+        else:
+            print("This is not a possible option!")
+        
+
 
 #------------------------------------//Health system
 
@@ -190,24 +207,26 @@ def healthCheck(deathMessage): #removes health
 
 #---------------------------------------------------------------------------------------------------//start of the game
 
-diffselect()
+diffSelect()
+
+character = characterSelect()
 
 #---------------------------------------------------------------------------------------------------//hero character recurring levels
 
-def continuePathForest():
-    currentLevel = "level 1: forest"
+def continuePathForest(): #level 2: plains
+    currentLevel = "level 2: plains"
     theInfoDumper([
 
     ])
 
-def continueDeeperForest():
+def continueDeeperForest(): #level 2: deeper forest
     theInfoDumper([
 
     ])
 
 #---------------------------------------------------------------------------------------------------//hero character story
 
-if character == "hero": #to do: add continuation to forest path, add deeper forest path, Log levels
+if character == "hero": #to do: add continuation to forest path, add deeper forest path, add desert path, finish snake battle
     global currentLevel
     currentLevel = "level 0: the village"
     theInfoDumper([
@@ -219,8 +238,8 @@ if character == "hero": #to do: add continuation to forest path, add deeper fore
         "One day the boy had a chance. A less prominent member of the royal family had been kidnapped on their way to one of the capital of the country. If he could find them and strike down the people that kidnapped them, they might land him a job in a lesser castle. From where he could then work up to the royal family.",
         "And so the boy set out on an adventure. To find and rescue the royal member from certain doom!\n"
     ])
-    choice = decision("As you leave the village you come across a sign. One arrow points to the right and one points straight ahead. The arrows have 'forest' and 'desert' on them. Which way will you go? (forest or desert)\n", ["forest", "desert"])
-    if choice == 0:
+    choice = decision("As you leave the village you come across a sign. One arrow points to the right and one points straight ahead. The arrows have 'forest' and 'desert' on them. Which way will you go? (forest or desert)\n (reminder that the options menu can be opened at any time by typing 'options'\n", ["forest", "desert"])
+    if choice == 0: #level 1: forest
         currentLevel = "level 1: forest"
         theInfoDumper([
             "You chose to enter the forest!",
@@ -231,9 +250,9 @@ if character == "hero": #to do: add continuation to forest path, add deeper fore
             "The inside of the forest is calm. No one was there. Althought the ocasional bird could be seend sitting on the branches of the trees."
         ])
         choice = decision("As your eyes wonder around you see a glint deeper into the forest. The glint is off the path. Will you go thowards the glint or stay on the path? (path or deeper forest)\n", ["path", "deeper forest"])
-        if choice == 0:
+        if choice == 0: #level 2: plains
             continuePathForest()
-        else:
+        else: #level 2: deeper forest
             currentLevel = "level 2: deeper forest"
             theInfoDumper([
                 "You chose to walk into the deeper part of the forest. Following the glint you were so curious about.",
@@ -241,15 +260,64 @@ if character == "hero": #to do: add continuation to forest path, add deeper fore
                 "The glint was a chest!"
             ])
             choice = decision("Would you like to open the chest? (yes or no)\n", ["yes", "no"])
-            if choice == "yes":
+            if choice == 0: #grab chest, fight snakes, get loot, life good.
                 theInfoDumper([
                     "You walk thowards the chest and grab onto both sides of the top.",
                     "As you slowly open the chest you notice something. The inside of the chest is covered in green...",
                     "A group of snakes jump out of the chest!"
                 ])
+                battle([ #snakes, snakes, we are the snakes
+                    "You pull out your sword and point it at the group of snakes. They are with many, and their long viper teeth are sure to inflict some damage if not handled carefully",
+                    "The snakes advance thowards you. You step back a bit to keep the distance.",
+                    "The snakes seem to be tired. A simple scream might be able to scare them off now."
+                ], [
+                    [
+                        "You slash one of the snakes with your blade. It didnt kill it, but it did damage it.",
+                        "You barely scraped by the skin of one of the snakes with your blade. The snakes strike back by biting your foot.",
+                        "You stumble over. One of the snikes bites you in your foot.",
+                        "You died to the snakes venom. Didn't come far for a hero ey?"
+                    ], [
+                        "You strike one of the snakes on it head. It instantly dies. The other snakes back up.",
+                        "You miss the snakes by a hair. The snakes strike back and bite your hand.",
+                        "You hit your head against one of the branches. A snake bites you in your hand.",
+                        "You died to the snakes venom. Didn't come far for a hero ey?"
+                    ], [
+                        "You scream at the snakes. They get scared and run away. You win the battle!",
+                        "You swing around your sword. A last snakes bites your leg as they slitter away.",
+                        "You stumble forward onto one of the snakes. It bites your face before slittering away.",
+                        "You were at the end of the battle! Come on, you can do better!"
+                    ]
+                ])
+                theInfoDumper([
+                    "After defeating the snakes you walk back to the chest.",
+                    "You again grab the top of the chest with both hands and lift up the lid.",
+                    "You found....A new sword!"
+                ])
+                damageMultiplier = 1.50
+                choice = decision("As you grab the new sword, \nyou look back at the path. Would you like to go back on the path or go further into the deeper part of the forest? (back or further)\n", ["back", "further"])
+                if choice == 0: #level 2: plains
+                    continuePathForest()
+                else: #level 2: deeper forest
+                    continueDeeperForest()
             else:
                 choice = decision("You walk away from the chest. Would you like to go back on the path or go further into the deeper part of the forest? (back or further)\n", ["back", "further"])
-    else:
+                if choice == 0: #level 2: plains
+                    continuePathForest()
+                else: #level 2: deeper forest
+                    continueDeeperForest()
+    else: #level 1: desert
         theInfoDumper([
-
+            "You chose to go to the desert!",
+            "The thought of a desert right next to the plains you lived in didnt pay you any mind. You were excited for this adventure.",
+            "As you reached the desert you felt the sun intensify, the air becoming drier and your body screaming for water. But water was a long way away in the middle of nowhere.",
+            "You walked, walked, walked, and walked some more. Until...",
+            "You found an oasis!"
         ])
+        choice = decision("Will you drink from the oasis? (yes or no)\n", ["yes", "no"])
+        if choice == 0:
+            theInfoDumper([
+
+            ])
+        else: #who thought not drinking the water was a good idea?
+            while character == "hero":
+                healthCheck("You died of thirst! Shouldve thought about that one.")
